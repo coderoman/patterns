@@ -1,2 +1,1 @@
-# patterns
-Design patterns
+# gang of four design patterns
