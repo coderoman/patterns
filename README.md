@@ -1,4 +1,4 @@
-# gang of four design patterns
+# Gang of four design patterns
 
 ## Creational
 
