@@ -1,62 +1,64 @@
 interface FlyBehaviour {
-    fly(): void;
+  fly(): void;
+}
+
+interface QuackBehaviour {
+  quack(): void;
+}
+
+abstract class Duck {
+  public name: String;
+  private _flyBehaviour: FlyBehaviour;
+  private _quackBehaviour: QuackBehaviour;
+
+  constructor(name: String, flyingBehaviour: FlyBehaviour, quackBehaviour: QuackBehaviour) {
+    this.name = name;
+    this._flyBehaviour = flyingBehaviour;
+    this._quackBehaviour = quackBehaviour;
   }
-  
-  interface QuackBehaviour {
-    quack(): void;
+
+  public setFlyBehaviour(fb: FlyBehaviour) {
+    this._flyBehaviour = fb;
   }
-  
-  class Duck {
-    flyBehaviour: FlyBehaviour;
-    quackBehaviour: QuackBehaviour;
-  
-    constructor(){}
-  
-    performFly() {
-      this.flyBehaviour.fly()
-    }
-  
-    performQuack() {
-      this.quackBehaviour.quack()
-    }
-  
-    setFlyBehaviour(fb: FlyBehaviour) {
-      this.flyBehaviour = fb;
-    }
-  
-    setQuackBehaviour(qb: QuackBehaviour){
-      this.quackBehaviour = qb;
-    }
+
+  public performFly() {
+    this._flyBehaviour.fly()
   }
-  
-  class FlyWithWings implements FlyBehaviour {
-    fly(){
-      console.log('This duck can fly with wings');
-    }
+
+  public setQuackBehaviour(qb: QuackBehaviour) {
+    this._quackBehaviour = qb;
   }
-  
-  class FlyNoWay implements FlyBehaviour {
-    fly(){
-      console.log("i can't fly");
-    }
+
+  public performQuack() {
+    this._quackBehaviour.quack()
   }
-  
-  class QuackQuack implements QuackBehaviour {
-    quack(){
-      console.log('Кря кря');
-    }
+}
+
+class FlyWithWings implements FlyBehaviour {
+  fly() {
+    console.log('This duck can fly with wings');
   }
-  
-  class MallardDuck extends Duck {
-    name: string;
-    constructor(name: string){
-      super()
-      this.flyBehaviour = new FlyWithWings();
-      this.quackBehaviour = new QuackQuack();
-    }
+}
+
+class FlyNoWay implements FlyBehaviour {
+  fly() {
+    console.log("i can't fly");
   }
-  
-  const ducky = new MallardDuck('Ducky');
-  
-  ducky.performFly();
-  ducky.performQuack();
+}
+
+class QuackQuack implements QuackBehaviour {
+  quack() {
+    console.log('Кря кря');
+  }
+}
+
+class MallardDuck extends Duck {
+  constructor(name: string) {
+    super(name, new FlyWithWings(), new QuackQuack());
+  }
+}
+
+const ducky = new MallardDuck('Ducky');
+
+ducky.performFly();
+ducky.performQuack();
